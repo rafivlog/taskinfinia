@@ -1,0 +1,97 @@
+﻿
+
+<style>
+    /* Table Styles */
+    table {
+        width: 100%;
+        border: 1px solid #ddd; /* Border around the table */
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #ddd; /* Border around each cell */
+    }
+
+    /* Alternating row colors */
+    tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    /* Header Styles */
+    th {
+        background-color: darkgrey;
+        color: #fff;
+    }
+
+    /* Hover effect for table rows */
+    tbody tr:hover {
+        background-color: #e9ecef; /* Light grey background on hover */
+    }
+
+
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table class="table table-striped">
+    
+    <thead>
+        <tr>
+            <th colspan="10" style="text-align: center;">Employee List</th>
+        </tr>
+        <tr>
+            <th scope="col">Sr</th>
+            <th scope="col">Employee Name</th>
+            <th scope="col">Department Name</th>
+            <th scope="col">Designation Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Join Date</th>
+            <th scope="col">DOB</th>
+            <th scope="col">Salary</th>
+            <th scope="col">Status</th>
+            <th scope="col">Edit/Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < ViewBag.employee.Count; i++)
+        {
+            <tr>
+                <td style="text-align:center">@(i + 1)</td>
+                <td style="text-align:center">@ViewBag.employee[i].empname</td>
+                <td style="text-align:center">@ViewBag.employee[i].deptname</td>
+                <td style="text-align:center">@ViewBag.employee[i].designame</td>
+                <td style="text-align:center">@ViewBag.employee[i].email</td>
+                <td style="text-align:center">@ViewBag.employee[i].dtjoin</td>
+                <td style="text-align:center">@ViewBag.employee[i].dtbirth</td>
+                
+                <td style="text-align:center">@ViewBag.employee[i].salary</td>
+                <td style="text-align:center">
+                    @if (ViewBag.employee[i].emp_status == true)
+                    {
+                        <text>Active</text>
+                    }
+                    else
+                    {
+                        <text>InActive</text>
+                    }
+                </td>
+                <td style="text-align:center">
+                    <button class="btn-edit">Edit</button>
+                    <button class="btn-delete">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

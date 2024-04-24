@@ -138,45 +138,101 @@
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
+
+    $(function () {
+       // debugger
+        $.ajax({
+            url: '/Hrm/DropDown/GetdepartmentDropdownData',
+            type: 'GET',
+
+            success: function (data) {
+                //console.log(data);
+                var dropdown = $('#dept_id');// dropdown #ID field name
+                dropdown.empty();
+
+                var selectoption = $('<option>').text('--select--').val('');
+                dropdown.append(selectoption);
+
+                $.each(data, function (index, group) {
+
+                    var option = $('<option>').text(group.dd_value).val(group.id);
+
+                    dropdown.append(option);
+
+                });
+
+            },
+
+        });
+    });
+
+
+    $(function () {
+        // debugger
+        $.ajax({
+            url: '/Hrm/DropDown/GetdesignationDropdownData',
+            type: 'GET',
+
+            success: function (data) {
+                //console.log(data);
+                var dropdown = $('#desig_id');// dropdown #ID field name
+                dropdown.empty();
+
+                var selectoption = $('<option>').text('--select--').val('');
+                dropdown.append(selectoption);
+
+                $.each(data, function (index, group) {
+
+                    var option = $('<option>').text(group.dd_value).val(group.id);
+
+                    dropdown.append(option);
+
+                });
+
+            },
+
+        });
+    });
+
+
+
+    //Add
     function SubmitForm() {
-        // var formData = new FormData();
-        // formData.append('empname', $('#name').val());
-        // formData.append('email', $('#email').val());
-        // formData.append('password', $('#password').val());
-        // formData.append('dtjoin', $('#joindate').val());
-        // formData.append('dtbirth', $('#dateofbirth').val());
-        // formData.append('dept_id', $('#departmentid').val());
-        // formData.append('dept_name', $('#departmentname').val());
-        // formData.append('desig_id', $('#designationid').val());
-        // formData.append('salary', $('#salary').val());
-        // formData.append('emp_status', $('#empstatus').val());
-        // formData.append('address', $('#address').val());
+        var formData = new FormData();
+        formData.append('empname', $('#name').val());
+        formData.append('email', $('#email').val());
+        formData.append('password', $('#password').val());
+        formData.append('dtjoin', $('#joindate').val());
+        formData.append('dtbirth', $('#dateofbirth').val());
+        formData.append('dept_id', $('#dept_id').val());
+        formData.append('desig_id', $('#desig_id').val());
+        formData.append('salary', $('#salary').val());
+        formData.append('emp_status', $('#empstatus').val());
+        formData.append('address', $('#address').val());
 
-        // $.ajax({
-        //     type: 'POST',
-        //     url: '/Hrm/Employee/Save',
-        //     data: formData,
-        //     contentType: false,
-        //     processData: false,
-        //     success: function (result) {
-        //         $('#name').val('');
-        //         $('#email').val('');
-        //         $('#password').val('');
-        //         $('#joindate').val('');
-        //         $('#dateofbirth').val('');
-        //         $('#departmentid').val('');
-        //         $('#departmentname').val('');
-        //         $('#designationid').val('');
-        //         $('#salary').val('');
-        //         $('#empstatus').val('');
-        //         $('#address').val('');
-        //         //window.location.href = '/Hrm/Employee/Show';
-        //     },
-        //     error: function () {
+        $.ajax({
+            type: 'POST',
+            url: '/Hrm/Employee/Save',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                $('#name').val('');
+                $('#email').val('');
+                $('#password').val('');
+                $('#joindate').val('');
+                $('#dateofbirth').val('');
+                $('#dept_id').val('');
+                $('#desig_id').val('');
+                $('#salary').val('');
+                $('#empstatus').val('');
+                $('#address').val('');
+            },
+            error: function () {
 
-        //     }
+            }
 
-        // });
+        });
     }
 
     // function Submitloginform() {

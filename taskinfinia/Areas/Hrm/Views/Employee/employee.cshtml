@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Information Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+
+        form {
+            padding: 15px;
+            width: 100%;
+            max-width: 600px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        label {
+            flex: 1;
+            margin-right: 10px; /* Space between label and input */
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            flex: 2; /* Inputs take more space than labels */
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 48%; /* Nearly half width, accounting for margin */
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            color: white;
+            background-color: #007bff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #0056b3;
+            }
+
+        textarea {
+            height: 80px;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <div class="form-row">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-row">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-row">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+
+        <div class="form-row">
+            <label for="joindate">Join Date:</label>
+            <input type="date" id="joindate" name="joindate" required>
+        </div>
+
+        <div class="form-row">
+            <label for="dateOfBirth">Date of Birth:</label>
+            <input type="date" id="dateofbirth" name="dateofbirth" required>
+        </div>
+
+       
+
+        <div class="form-row">
+            <label for="departmentname">Department Name:</label>
+            <select id="dept_id" name="dept_id">
+            </select>
+        </div>
+
+
+        <div class="form-row">
+            <label for="designationame">Designation Name:</label>
+            <select id="desig_id" name="desig_id">
+            </select>
+        </div>
+
+        
+
+        <div class="form-row">
+            <label for="salary">Salary:</label>
+            <input type="number" id="salary" name="salary" required>
+        </div>
+
+        <div class="form-row">
+            <label for="empStatus">Employee Status:</label>
+            <select id="empstatus" name="empstatus" required>
+                <option value="true" selected>Select</option>
+                <option value="true">Active</option>
+                <option value="false">Inactive</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <label for="address">Address:</label>
+            <textarea id="address" name="address" required></textarea>
+        </div>
+
+        <div class="form-row">
+            <button type="button" id="savebutton" onclick="SubmitForm()">Submit</button>
+            <button type="button" id="saveloginbutton" onclick="Submitloginform()">Login</button>
+        </div>
+    </form>
+</body>
+</html>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    function SubmitForm() {
+        // var formData = new FormData();
+        // formData.append('empname', $('#name').val());
+        // formData.append('email', $('#email').val());
+        // formData.append('password', $('#password').val());
+        // formData.append('dtjoin', $('#joindate').val());
+        // formData.append('dtbirth', $('#dateofbirth').val());
+        // formData.append('dept_id', $('#departmentid').val());
+        // formData.append('dept_name', $('#departmentname').val());
+        // formData.append('desig_id', $('#designationid').val());
+        // formData.append('salary', $('#salary').val());
+        // formData.append('emp_status', $('#empstatus').val());
+        // formData.append('address', $('#address').val());
+
+        // $.ajax({
+        //     type: 'POST',
+        //     url: '/Hrm/Employee/Save',
+        //     data: formData,
+        //     contentType: false,
+        //     processData: false,
+        //     success: function (result) {
+        //         $('#name').val('');
+        //         $('#email').val('');
+        //         $('#password').val('');
+        //         $('#joindate').val('');
+        //         $('#dateofbirth').val('');
+        //         $('#departmentid').val('');
+        //         $('#departmentname').val('');
+        //         $('#designationid').val('');
+        //         $('#salary').val('');
+        //         $('#empstatus').val('');
+        //         $('#address').val('');
+        //         //window.location.href = '/Hrm/Employee/Show';
+        //     },
+        //     error: function () {
+
+        //     }
+
+        // });
+    }
+
+    // function Submitloginform() {
+    //     window.location.href = '/Hrm/Emplogin/Login';
+
+    // }
+</script>
+
+
+

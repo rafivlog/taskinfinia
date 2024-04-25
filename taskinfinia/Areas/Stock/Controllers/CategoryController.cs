@@ -31,7 +31,7 @@ namespace taskinfinia.Areas.Stock.Controllers
 
         }
 
-        /*[HttpGet("Category/Edit/{cat_id}")]
+        [HttpGet("Category/Edit/{cat_id}")]
         public ActionResult Edit(int cat_id)
         {
             //data show on edit page .placeholder
@@ -54,14 +54,15 @@ namespace taskinfinia.Areas.Stock.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(int cat_id)
+
+        public ActionResult Delete(int id)
         {
             int result;
-            result = CategoryRepository.deleteCategory(cat_id);
+            result = CategoryRepository.deleteCategory(id);
             //return Json(result);
 
             return Json(new { success = true, Message = "Delete Successfully!" });
-        }*/
+        }
 
     }
 }

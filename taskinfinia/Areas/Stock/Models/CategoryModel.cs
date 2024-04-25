@@ -9,6 +9,7 @@ namespace taskinfinia.Areas.Stock.Models
 
         public DateTime InsertAT { get; set; }
 
-        //public int cat_id { get; set; }
+        public int cat_id { get; set; }
+
     }
 }

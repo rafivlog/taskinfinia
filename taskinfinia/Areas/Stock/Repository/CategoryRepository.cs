@@ -46,7 +46,7 @@ namespace taskinfinia.Areas.Stock.Repository
         public static List<CategoryModel> getcategory()
         {
             string response = string.Empty;
-            string query = "SELECT catname , InsertAT FROM STK_Category WHERE catname IS NOT NULL";
+            string query = "SELECT cat_id,catname , InsertAT FROM STK_Category WHERE catname IS NOT NULL";
             using IDbConnection con = new SqlConnection(LoadConnectionString());
             return con.Query<CategoryModel>(query, new DynamicParameters()).ToList();
 
@@ -54,15 +54,15 @@ namespace taskinfinia.Areas.Stock.Repository
 
         }
 
-       /* public static CategoryModel GetEditCategoryData(int cat_id)
+        public static CategoryModel GetEditCategoryData(int id)
         {
-            string query = @"SELECT * FROM STK_Category WHERE cat_id = " + cat_id;
+            string query = @"SELECT * FROM STK_Category WHERE cat_id = " + id;
             using IDbConnection con = new SqlConnection(LoadConnectionString());
             return con.Query<CategoryModel>(query, new DynamicParameters()).FirstOrDefault();
-        }*/
+        }
 
 
-        /*public static int Update(CategoryModel categry)
+        public static int Update(CategoryModel categry)
         {
             var check = categry.catname;
             if (check == null)
@@ -89,22 +89,22 @@ namespace taskinfinia.Areas.Stock.Repository
             }
 
 
-        }*/
+        }
 
 
-       /* public static int deleteCategory(int cat_id)
+        public static int deleteCategory(int id)
         {
-            string query = "DELETE  FROM STK_Category WHERE cat_id = @cat_id";
+            string query = "DELETE  FROM STK_Category WHERE cat_id = @id";
             using (IDbConnection con = new SqlConnection(LoadConnectionString()))
             {
                 return con.Execute(query, new
                 {
-                    cat_id
+                    id
                 });
             }
 
 
-        }*/
+        }
 
 
 

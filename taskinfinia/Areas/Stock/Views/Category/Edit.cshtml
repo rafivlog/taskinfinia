@@ -84,12 +84,13 @@
 
     <div class="container">
         <form>
+            <input id="cat_id" value="@Model.cat_id" hidden>
             <div class="form-group">
                 <input id="InsertAT" hidden>
                 <label for="category">Category:</label>
                 <input type="text" id="catname" name="catname" value="@Model.catname">
             </div>
-            <input class="btn" type="button" value="Save" onclick="Submitcategory()">
+            <input class="btn" type="button" value="Update" onclick="Submitcategory()">
         </form>
     </div>
 
@@ -114,6 +115,7 @@
             var formData = new FormData();
             formData.append('catname', $('#catname').val());
             formData.append('InsertAT', $('#InsertAT').val());
+            formData.append('cat_id', $('#cat_id').val());
         }
         
         $.ajax({
@@ -127,8 +129,11 @@
                 //$('#hidden_id').val('');
                 $('#InsertAT').val('');
                 $('#catname').val('');
+                $('#cat_id').val('');
+                window.location.reload();
                
                 //window.location.href = "_Layout";
+                window.location.href = '/Stock/Category/category';
             },
             error: function () {
 

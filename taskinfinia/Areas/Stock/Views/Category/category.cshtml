@@ -128,20 +128,14 @@
                     <td style="text-align:center">@(i + 1)</td>
                     <td style="text-align:center">@ViewBag.category[i].catname</td>
                     <td style="text-align:center">@ViewBag.category[i].InsertAT.ToString("yyyy-MM-dd")</td>
-                    <td>
-                        <button type="button" class=" btn-danger">Edit</button>
-                        <button type="button" class=" btn-danger">Delete</button>
-                    </td>
 
-
-                    @* use url link to go edit page , same as employee index page , because some complicated() issues   *@
-                    @* <td style="text-align:center">
+                    <td style="text-align:center">
                         <button>
                             <a style="text-decoration:none ; color:black" href="@Url.Action("Edit","Category",new {cat_id = @ViewBag.category[i].cat_id})" class="btn btn-success">Edit</a>
                         </button>
                         <button type="button" class="btn btn-danger" onclick="deleteCategory(@ViewBag.category[i].cat_id)">Delete</button>
 
-                    </td> *@
+                    </td>
                 </tr>
             }
         </tbody>
@@ -189,20 +183,21 @@
         });
     }
 
-    // function deleteCategory(cat_id) {
-    //    if (confirm("Are you sure you want to delete this entry?")) {
-    //         $.ajax({
-    //             url: '/Stock/Category/Delete/'+cat_id,
-    //             type: 'POST', 
-    //             success: function (result) {
-    //                 if (result != null) {
-    //                     window.location.reload();
-    //                 }
-    //             },
-    //             error: function () {
-    //             }
-    //         });
-    //     }
-    // }
+    function deleteCategory(cat_id) {
+       debugger
+       if (confirm("Are you sure you want to delete this entry?")) {
+            $.ajax({
+                url: '/Stock/Category/Delete/'+cat_id,
+                type: 'POST', 
+                success: function (result) {
+                    if (result != null) {
+                        window.location.reload();
+                    }
+                },
+                error: function () {
+                }
+            });
+        }
+    }
 
 </script>

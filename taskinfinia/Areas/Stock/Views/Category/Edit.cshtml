@@ -1,0 +1,139 @@
+﻿@model taskinfinia.Areas.Stock.Models.CategoryModel
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Input Field</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            input[type="submit"]:hover {
+                background-color: #0056b3;
+            }
+
+      
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff; /* Default button color */
+            color: #fff; /* Default text color */
+            transition: background-color 0.3s;
+        }
+
+            .btn:hover {
+                background-color: #0056b3; /* Button color on hover */
+            }
+
+
+        /* table css */
+        
+
+        
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <form>
+            <div class="form-group">
+                <input id="InsertAT" hidden>
+                <label for="category">Category:</label>
+                <input type="text" id="catname" name="catname" value="@Model.catname">
+            </div>
+            <input class="btn" type="button" value="Save" onclick="Submitcategory()">
+        </form>
+    </div>
+
+</body>
+</html>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+<script>
+    function Submitcategory() {
+        var catnameValue = $('#catname').val()[0];
+        //console.log(catnameValue);
+
+        var symbolRegex = /[^a-zA-Z]/;
+
+        if (symbolRegex.test(catnameValue)) {
+            console.log("The first character of catname is a symbol.");
+        }else {
+            var formData = new FormData();
+            formData.append('catname', $('#catname').val());
+            formData.append('InsertAT', $('#InsertAT').val());
+        }
+        
+        $.ajax({
+            type: 'POST',
+            url: '/Stock/Category/update',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                // Handle the success case, e.g., remove the deleted image from the table
+                //$('#hidden_id').val('');
+                $('#InsertAT').val('');
+                $('#catname').val('');
+               
+                //window.location.href = "_Layout";
+            },
+            error: function () {
+
+            }
+
+        });
+    }
+</script>

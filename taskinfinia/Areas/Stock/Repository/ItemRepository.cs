@@ -39,6 +39,7 @@ namespace taskinfinia.Areas.Stock.Repository
             string query = "SELECT cat.catname, stk.item_name, stk.item_price, stk.item_location, stk.qty FROM STK_Category cat INNER JOIN  STK_Stock stk ON cat.cat_id = stk.cat_id ";
             using IDbConnection con = new SqlConnection(LoadConnectionString());
             return con.Query<ItemModel>(query, new DynamicParameters()).ToList();
+
         }
 
 

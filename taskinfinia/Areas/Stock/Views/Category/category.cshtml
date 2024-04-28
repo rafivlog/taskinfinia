@@ -133,6 +133,8 @@
             }
 
     </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
 </head>
 <body>
     <div id="myModal" class="modal">
@@ -175,9 +177,13 @@
 
                     <td style="text-align:center">
                         <button>
-                            <a style="text-decoration:none ; color:black" href="@Url.Action("Edit","Category",new {cat_id = @ViewBag.category[i].cat_id})" class="btn btn-success">Edit</a>
+                            <a style="text-decoration:none ; color:black" href="@Url.Action("Edit","Category",new {cat_id = @ViewBag.category[i].cat_id})" class="btn btn-success">
+                                <i class="fas fa-edit"></i>
+                            </a>
                         </button>
-                        <button type="button" class="btn btn-danger" onclick="deleteCategory(@ViewBag.category[i].cat_id)">Delete</button>
+                        <button type="button" class="btn btn-danger" onclick="deleteCategory(@ViewBag.category[i].cat_id)">
+                            <i class="fa fa-trash"></i>
+                        </button>
 
                     </td>
                 </tr>

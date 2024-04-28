@@ -57,7 +57,7 @@
                 color: #fff;
             }
     </style>
-    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
 </head>
 <body>
@@ -84,8 +84,12 @@
                     <td style="text-align:center">@ViewBag.item[i].qty</td>
                     <td style="text-align:center">@ViewBag.item[i].item_location</td>
                     <td>
-                        <button type="button" class=" btn-danger">Edit</button>
-                        <button type="button" class=" btn-danger">Delete</button>
+                        <button type="button" class=" btn-danger">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button type="button" class=" btn-danger">
+                            <i class="fa fa-trash"></i>
+                        </button>
                     </td>
                 </tr>
 

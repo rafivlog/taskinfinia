@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a New Item</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #eceff1;
+            color: #333;
+        }
+
+       
+
+        form {
+            padding: 20px;
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            opacity:1.5;
+            background-color:blanchedalmondl;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #5f6368;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            transition: border 0.3s, opacity 0.5;
+        }
+
+            input:focus, select:focus, textarea:focus {
+                border-color: #4285f4;
+                outline: none;
+            }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            border: none;
+            color: white;
+            background-color: #4285f4;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            button:hover {
+                background-color: #3367d6;
+            }
+
+        textarea {
+            height: 100px;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="container">
+        <form>
+            <div class="form-group">
+                <label for="category">Category:</label>
+                <select id="cat_id" name="cat_id">
+
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="itemName">Item Name:</label>
+                <input type="text" id="item_name" name="item_name" placeholder="Enter item name">
+            </div>
+            <div class="form-group">
+                <label for="itemPrice">Item Price : $</label>
+                <input type="number" id="item_price" name="item_price" placeholder="Enter item price">
+            </div>
+            <div class="form-group">
+                <label for="itemQuantity">Item Quantity:</label>
+                <input type="text" id="qty" name="qty" placeholder="Enter item quantity">
+            </div>
+            <div class="form-group">
+                <label for="itemLocation">Item Location:</label>
+                <input type="text" id="item_location" name="item_location" placeholder="Enter item location">
+            </div>
+            <button id="savebutton" onclick="additemfunction()" type="button">Save</button>
+        </form>
+    </div>
+
+</body>
+</html>
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+<script>
+    $(function () {
+        debugger
+        $.ajax({
+            url: '/Stock/DropDown/GetCategoryDropDownData',
+            type: 'GET',
+
+            success: function (data) {
+
+                var dropdown = $('#cat_id');// dropdown #ID field name
+                dropdown.empty();
+
+                var selectoption = $('<option>').text('--select--').val('');
+                dropdown.append(selectoption);
+
+                $.each(data, function (index, group) {
+
+                    var option = $('<option>').text(group.dd_value).val(group.id);
+
+                    dropdown.append(option);// dd_value -> collect to the employee table , using query
+
+                });
+
+            },
+
+        });
+    });
+
+    function additemfunction() {
+        var itemprice = $('item_price').val();
+        var formData = new FormData();
+        formData.append('item_name', $('#item_name').val());
+        formData.append('cat_id', $('#cat_id').val());
+        formData.append('item_price', $('#item_price').val());
+        formData.append('qty', $('#qty').val());
+        formData.append('item_location', $('#item_location').val());
+
+        $.ajax({
+            type: 'POST',
+            url: '/Stock/Item/Save',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                $('#item_name').val('');
+                $('#item_price').val('');
+                $('#qty').val('');
+                $('#item_location').val('');
+                $('#cat_id').val('');
+
+
+                window.location.href = '/Stock/Item/Itemlist';
+            },
+            error: function () {
+
+            }
+
+        });
+    }
+</script>

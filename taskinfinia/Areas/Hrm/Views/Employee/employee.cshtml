@@ -81,7 +81,7 @@
 
         <div class="form-row">
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+            <input type="password"  id="password" name="password" required>
         </div>
 
         <div class="form-row">
@@ -206,42 +206,82 @@
 
 
     //Add
+    
+
     function SubmitForm() {
-        var formData = new FormData();
-        formData.append('empname', $('#name').val());
-        formData.append('email', $('#email').val());
-        formData.append('password', $('#password').val());
-        formData.append('dtjoin', $('#joindate').val());
-        formData.append('dtbirth', $('#dateofbirth').val());
-        formData.append('dept_id', $('#dept_id').val());
-        formData.append('desig_id', $('#desig_id').val());
-        formData.append('salary', $('#salary').val());
-        formData.append('emp_status', $('#empstatus').val());
-        formData.append('address', $('#address').val());
+        debugger
+        var name = $('#name').val();
+        var email = $('#email').val();
+        var pass = $('#password').val();
+        var joindate = $('#joindate').val();
+        var dob = $('#dateofbirth').val();
+        var dep = $('#dept_id').val();
+        var des = $('#desig_id').val();
+        var sal = $('#salary').val();
+        var status = $('#empstatus').val();
+        var add = $('#address').val();
+        var isValidEmail = /\S+\S+\.\S+/.test(email);
 
-        $.ajax({
-            type: 'POST',
-            url: '/Hrm/Employee/Save',
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function (result) {
-                $('#name').val('');
-                $('#email').val('');
-                $('#password').val('');
-                $('#joindate').val('');
-                $('#dateofbirth').val('');
-                $('#dept_id').val('');
-                $('#desig_id').val('');
-                $('#salary').val('');
-                $('#empstatus').val('');
-                $('#address').val('');
-            },
-            error: function () {
+      if (!(name && email && pass && joindate && dob && dep && des && sal && status && add)) 
+      {
+            alert('plz fill form');
+      }
+      else if (isValidEmail)
+      {
+            if (name && pass && joindate && dob && dep && des && sal && status && add)
+            {
+                var formData = new FormData();
+                formData.append('empname', $('#name').val());
+                formData.append('email', $('#email').val());
+                formData.append('password', $('#password').val());
+                formData.append('dtjoin', $('#joindate').val());
+                formData.append('dtbirth', $('#dateofbirth').val());
+                formData.append('dept_id', $('#dept_id').val());
+                formData.append('desig_id', $('#desig_id').val());
+                formData.append('salary', $('#salary').val());
+                formData.append('emp_status', $('#empstatus').val());
+                formData.append('address', $('#address').val());
 
+                $.ajax({
+                    type: 'POST',
+                    url: '/Hrm/Employee/Save',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (result) {
+                        $('#name').val('');
+                        $('#email').val('');
+                        $('#password').val('');
+                        $('#joindate').val('');
+                        $('#dateofbirth').val('');
+                        $('#dept_id').val('');
+                        $('#desig_id').val('');
+                        $('#salary').val('');
+                        $('#empstatus').val('');
+                        $('#address').val('');
+                    },
+                    error: function () {
+
+                    }
+
+                });
             }
+            else
+            {
+                alert('plz fill form');
+            }
+      } 
+      else 
+      {
+          alert('Invalid email.');
+      }
+ 
 
-        });
+
+                
+
+       
+               
     }
 
     // function Submitloginform() {

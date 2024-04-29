@@ -87,6 +87,7 @@
 
     <div class="container">
         <form id="formdrp">
+            <input id="InsertAT" hidden>
             <div  class="form-group">
                 <label for="category">Category:</label>
                 <select class="form-select" id="cat_id" name="cat_id">
@@ -110,6 +111,7 @@
                 <input type="text" id="item_location" name="item_location" placeholder="Enter item location">
             </div>
             <button id="savebutton" onclick="additemfunction()" type="button">Save</button>
+            
         </form>
     </div>
 
@@ -138,12 +140,11 @@
                 dropdown.append(selectoption);
 
                 $.each(data, function (index, group) {
-
                     var option = $('<option>').text(group.dd_value).val(group.id);
-
                     dropdown.append(option);
-
                 });
+
+               
 
                 $("#cat_id").select2({
                     dropdownParent: $("#formdrp")
@@ -155,13 +156,19 @@
     });
     
     function additemfunction() {
-        var itemprice = $('item_price').val();
-        var formData = new FormData();
-        formData.append('item_name', $('#item_name').val());
-        formData.append('cat_id', $('#cat_id').val());
-        formData.append('item_price', $('#item_price').val());
-        formData.append('qty', $('#qty').val());
-        formData.append('item_location', $('#item_location').val());
+        var itemnamevalue = $('#item_name').val()[0];
+        var symbolRegex = /[^a-zA-Z]/;
+        if (symbolRegex.test(itemnamevalue)) {
+            console.log("The first character of catname is a symbol.");
+        } else {
+            var formData = new FormData();
+            formData.append('item_name', $('#item_name').val());
+            formData.append('item_price', $('#item_price').val());
+            formData.append('item_location', $('#item_location').val());
+            formData.append('InsertAT', $('#InsertAT').val());
+            formData.append('qty', $('#qty').val());
+            formData.append('cat_id', $('#cat_id').val());
+        }
 
         $.ajax({
             type: 'POST',
@@ -172,8 +179,9 @@
             success: function (result) {
                 $('#item_name').val('');
                 $('#item_price').val('');
-                $('#qty').val('');
                 $('#item_location').val('');
+                $('#InsertAT').val('');
+                $('#qty').val('');
                 $('#cat_id').val('');
                 window.location.href = '/Stock/Item/Itemlist';
             },

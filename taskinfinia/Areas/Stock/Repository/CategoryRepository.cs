@@ -81,7 +81,7 @@ namespace taskinfinia.Areas.Stock.Repository
 
                         categry.catname,
                         InsertAT = datetime,
-                        categry.cat_id
+                        categry.cat_id,
 
                     });
                 }

@@ -151,7 +151,9 @@
                 <label for="category">Category:</label>
                 <input type="text" id="catname" name="catname" placeholder="Enter category">
             </div>
-            <input class="btn" type="button" value="Save" onclick="Submitcategory()">
+            <button class="btn" type="button" onclick="Submitcategory()">
+                <i class="fas fa-save"></i>
+            </button>
             <input class="btn" type="button" value="AddItem" onclick="Additemfunction()">
         </form>
     </div>
@@ -220,11 +222,13 @@
                 $('#catname').val('');
                 $('#InsertAT').val('');
 
-                if (result == null) {
+                if (result === null) {
                     alert("Plz Add categeory");
                 }
 
-                window.location.reload(); 
+                else {
+                    window.location.reload();
+                }
 
             },
             error: function () {

@@ -7,5 +7,9 @@
         public string item_name { get; set; }
         public string item_location { get; set; }
         public int cat_id { get; set; }
+
+        public int stk_id { get; set; }
+
+        public DateTime InsertAT { get; set; }
     }
 }

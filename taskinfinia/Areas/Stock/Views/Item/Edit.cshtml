@@ -1,0 +1,143 @@
+﻿@* @model taskinfinia.Areas.Stock.Models.ItemModel
+ *@
+
+ @model taskinfinia.Areas.Stock.Models.ItemModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item Form</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        form h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            button:hover {
+                background-color: #004494;
+            }
+
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form>
+            <h2>Update Item</h2>
+            <input id="stk_id" value="@Model.stk_id" hidden>
+            <input id="InsertAT" hidden>
+            <div class="input-group">
+                <label for="item-name">Item Name</label>
+                <input type="text" id="item_name" name="item_name" value="@Model.item_name">
+            </div>
+            <div class="input-group">
+                <label for="item-price">Item Price</label>
+                <input type="text" id="item_price" name="item_price" value="@Model.item_price" placeholder="e.g. 19.99">
+            </div> 
+            <div class="input-group">
+                <label for="qty">Item Qty</label>
+                <input type="number" id="qty" name="qty" value="@Model.qty">
+            </div>
+            <div class="input-group">
+                <label for="item_location">Item Location</label>
+                <input type="text" id="item_location" name="item_location" value="@Model.item_location">
+            </div>
+            <button type="button" onclick="SubmitItem()">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    function SubmitItem() {
+        var itemnamevalue = $('#item_name').val()[0];
+        //console.log(catnameValue);
+
+        var symbolRegex = /[^a-zA-Z]/;
+
+        if (symbolRegex.test(itemnamevalue)) {
+            console.log("The first character of catname is a symbol.");
+        } else {
+            var formData = new FormData();
+            formData.append('item_name', $('#item_name').val());
+            formData.append('item_price', $('#item_price').val());
+            formData.append('item_location', $('#item_location').val());
+            formData.append('InsertAT', $('#InsertAT').val());
+            formData.append('stk_id', $('#stk_id').val());
+            formData.append('qty', $('#qty').val());
+
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/Stock/Item/update',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                $('#InsertAT').val('');
+                $('#item_name').val('');
+                $('#stk_id').val('');
+                $('#item_price').val('');
+                $('#item_location').val('');
+                $('#qty').val('');
+                //window.location.reload();
+
+                window.location.href = '/Stock/Item/Itemlist';
+            },
+            error: function () {
+
+            }
+
+        });
+    }
+</script>

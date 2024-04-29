@@ -27,5 +27,36 @@ namespace taskinfinia.Areas.Stock.Controllers
             ViewBag.item = itemlist;
             return View();
         }
+
+        [HttpPost]
+
+        public ActionResult Delete(int id)
+        {
+            int result;
+            result = ItemRepository.deleteitem(id);
+
+            return Json(new { success = true, Message = "Delete Successfully!" });
+        }
+
+
+        [HttpGet("Item/Edit/{stk_id}")]
+        public ActionResult Edit(int stk_id)
+        {
+            //data show on edit page .placeholder
+            ItemModel data = ItemRepository.GetItemlistData(stk_id);
+
+            return View(data);
+        }
+
+        [HttpPost]
+        public ActionResult update(ItemModel data)
+        {
+            int result;
+            result = ItemRepository.Update(data);
+
+
+            return Json(result);
+
+        }
     }
 }

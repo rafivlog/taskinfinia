@@ -23,12 +23,9 @@ namespace taskinfinia.Areas.Stock.Controllers
 
         public IActionResult Save(CategoryModel data)
         {
-
             int result;
             result = CategoryRepository.Create(data);
             return Json(result);
-
-
         }
 
         [HttpGet("Category/Edit/{cat_id}")]

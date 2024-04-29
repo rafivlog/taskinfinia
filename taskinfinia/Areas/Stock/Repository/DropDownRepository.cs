@@ -15,7 +15,7 @@ namespace taskinfinia.Areas.Stock.Repository
         }
         public static IEnumerable<DropDownModel> GetCategoryName()
         {
-            string query = "SELECT TOP 5 cat_id AS id, catname AS dd_value FROM STK_Category;";
+            string query = "SELECT cat_id AS id, catname AS dd_value FROM STK_Category";
 
             using (IDbConnection connection = new SqlConnection(LoadConnectionString()))
             {

@@ -1,0 +1,236 @@
+﻿<title>@ViewData["Title"] Distributed</title>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        select, input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+            input[type="date"] {
+                padding: 8px 5px;
+            }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+            button:hover {
+                background-color: #45a049;
+            }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css">
+</head>
+<body>
+
+    <div class="container">
+        <h2>Distribution Form</h2>
+        <form id="formdrp">
+            <div>
+                <label for="employeeName">Employee Name:</label>
+                <select class="form-select" id="id" name="id">
+                </select>
+            </div>
+            <div>
+                <label for="category">Category:</label>
+                <select class="form-select" id="cat_id" name="cat_id" onchange="catitemlist()">
+                </select>
+            </div>
+            <div>
+                <label for="item">Item Name & Item Quantity:</label>
+                <select class="form-select" id="stk_id" name="stk_id">
+                </select>
+            </div>
+            <div>
+                <label for="distributedQuantity">Distributed Quantity:</label>
+                <input type="number" id="qty" name="qty" min="1">
+            </div>
+            <div>
+                <label for="dateOfDistribution">Date of Distribution:</label>
+                <input type="date" id="distributed_date" name="distributed_date">
+            </div>
+            <div>
+                <label for="remarks">Remarks:</label>
+                <textarea id="remarks" name="remarks" rows="4" fixed></textarea>
+            </div>
+            <button type="button" onclick="addDistributedfunction()">Submit</button>
+        </form>
+    </div>
+
+</body>
+</html>
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
+
+ <script>
+
+    $(function () {
+        debugger
+        $.ajax({
+            url: '/Hrm/DropDown/GetemployeeName',
+            type: 'GET',
+
+            success: function (data) {
+                //console.log(data);
+                var dropdown = $('#id');// dropdown #ID field name
+                dropdown.empty();
+
+                var selectoption = $('<option>').text('--select--').val('');
+                dropdown.append(selectoption);
+
+                $.each(data, function (index, group) {
+
+                    var option = $('<option>').text(group.dd_value).val(group.id);
+
+                    dropdown.append(option);
+
+                });
+                $("#id").select2({
+                    dropdownParent: $("#formdrp")
+                });
+            },
+
+        });
+    });
+
+    $(function () {
+        debugger
+        $.ajax({
+            url: '/Stock/DropDown/GetCategoryDropDownData',
+            type: 'GET',
+
+            success: function (data) {
+
+                var dropdown = $('#cat_id');
+                dropdown.empty();
+
+                var selectoption = $('<option>').text('--select--').val('');
+                dropdown.append(selectoption);
+
+                $.each(data, function (index, group) {
+                    var option = $('<option>').text(group.dd_value).val(group.id);
+                    dropdown.append(option);
+                });
+
+                $("#cat_id").select2({
+                    dropdownParent: $("#formdrp")
+                });
+
+            },
+        });
+
+    });
+
+    function catitemlist() {
+        debugger
+        var cat_id = $('#cat_id').val();
+        
+        console.log(cat_id);
+        $.ajax({
+            url: '/Stock/DropDown/GetItemnameAndQuantity/' + cat_id,
+          
+            type: 'GET',
+            success: function (data) {
+
+                var dropdown = $('#stk_id');
+                dropdown.empty();
+
+                var selectoption = $('<option>').text('--Item Name-&-Quantity--').val('');
+                dropdown.append(selectoption);
+
+                $.each(data, function (index, group) {
+                    var option = $('<option>').text(group.dd_value).val(group.id);
+                    dropdown.append(option);
+                });
+
+                $("#stk_id").select2({
+                    dropdownParent: $("#formdrp")
+                });
+
+            },
+
+        });
+
+    }
+
+    function addDistributedfunction() {
+        var id = $('#id').val();
+        var cat_id = $('#cat_id').val();
+        var stk_id = $('#stk_id').val();
+        
+        debugger
+        var formData = new FormData();
+        formData.append('id', $('#id').val());
+        formData.append('cat_id', $('#cat_id').val());
+        formData.append('stk_id', $('#stk_id').val());
+        formData.append('qty', $('#qty').val());
+        formData.append('distributed_date', $('#distributed_date').val());
+        formData.append('remarks', $('#remarks').val());
+
+
+        $.ajax({
+            type: 'POST',
+            url: '/Stock/Distributed/Save',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                $('#qty').val('');
+                $('#distributed_date').val('');
+                $('#remarks').val('');
+                $('#id').val('');
+                $('#cat_id').val('');
+                $('#stk_id').val('');
+
+                window.location.href = '/Stock/Distributed/Show';
+            },
+            error: function () {
+
+            }
+
+        });
+
+
+    }
+
+
+
+</script>

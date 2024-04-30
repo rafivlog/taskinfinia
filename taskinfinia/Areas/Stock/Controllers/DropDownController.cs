@@ -17,5 +17,11 @@ namespace taskinfinia.Areas.Stock.Controllers
             IEnumerable<DropDownModel> data = DropDownRepository.GetCategoryName();
             return Json(data);
         }
+        public IActionResult GetItemnameAndQuantity(int id)
+        {
+            IEnumerable<DropDownModel> data = DropDownRepository.GetItemAndQuantity(id);
+            return Json(data);
+        }
+       
     }
 }

@@ -31,6 +31,16 @@ namespace taskinfinia.Areas.Hrm.Repository
             {
                 return connection.Query<DropDownModel>(query, new DynamicParameters()).ToList();
             }
+        } 
+        
+        public static IEnumerable<DropDownModel> GetEmployeeName()
+        {
+            string query = "SELECT id as id ,empname  as dd_value FROM HRM_Employees";
+
+            using (IDbConnection connection = new SqlConnection(LoadConnectionString()))
+            {
+                return connection.Query<DropDownModel>(query, new DynamicParameters()).ToList();
+            }
         }
     }
 }

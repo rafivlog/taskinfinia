@@ -18,5 +18,10 @@ namespace taskinfinia.Areas.Hrm.Controllers
             IEnumerable<DropDownModel> data = DropDownRepository.Getdesignation();
             return Json(data);
         }
+        public IActionResult GetemployeeName()
+        {
+            IEnumerable<DropDownModel> data = DropDownRepository.GetEmployeeName();
+            return Json(data);
+        }
     }
 }

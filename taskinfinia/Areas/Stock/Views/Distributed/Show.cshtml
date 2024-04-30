@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Table</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Reset some default styles */
+        body {
+            font-family: Arial, sans-serif; /* Ensures the font is modern and clean */
+            background-color: #f4f4f4; /* A light grey background for slight contrast */
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+        }
+
+        table {
+            width: 80%;
+            margin: 2% auto; /* Centers the table horizontally and provides top margin */
+            background-color: #ffffff; /* White background for the table */
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15); /* Adds shadow for 3D effect */
+            border-collapse: collapse; /* Use collapse to handle borders in a cleaner way */
+            border-radius: 8px; /* Rounded corners for the table */
+            overflow: hidden; /* Ensures the rounded corners are visible */
+        }
+
+        th, td {
+            padding: 12px 15px; /* More padding for a spacious layout */
+            text-align: center;
+            border-bottom: 1px solid #ddd; /* Only bottom border for a cleaner look */
+        }
+
+        th {
+            background-color: #007BFF; /* A solid, modern blue */
+            color: #ffffff; /* White text color */
+            font-size: 16px; /* Larger font size */
+        }
+
+        td {
+            color: #666666; /* Dark gray for text */
+            font-size: 14px;
+        }
+
+            td:hover {
+                background-color: #f2f2f2; /* Subtle hover effect */
+            }
+
+        /* Styling for buttons */
+        button {
+            border: none;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            transition-duration: 0.4s; /* Smooth transition for hover effect */
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .btn-danger {
+            background-color: #dc3545; /* Bootstrap red */
+            color: white;
+        }
+
+            .btn-danger:hover {
+                background-color: #c82333; /* A darker red for hover effect */
+                color: white;
+            }
+
+        h1 {
+            text-align: center; /* Center align the header */
+            color: #333333;
+            margin-top: 20px; /* Add top margin for spacing */
+            font-size: 24px; /* Larger and more prominent text */
+        }
+
+
+    </style>
+</head>
+<body>
+    <table>
+        <h1>All Employee List</h1>
+        <thead>
+            <tr>
+                <th>Sr</th>
+
+                <th>Employee Name</th>
+                <th>Category Name</th>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th>Invoice Date</th>
+                <th>Edit/Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < ViewBag.dist.Count; i++)
+            {
+                <tr>
+                    <td style="text-align:center">@(i + 1)</td>
+                    <td style="text-align:center">@ViewBag.dist[i].empname</td>
+                    <td style="text-align:center">@ViewBag.dist[i].catname</td>
+                    <td style="text-align:center">@ViewBag.dist[i].item_name</td>
+                    <td style="text-align:center">@ViewBag.dist[i].qty</td>
+                    <td style="text-align:center">@ViewBag.dist[i].distributed_date.ToString("yyyy-MM-dd")</td>
+                    <td>
+                        <button type="button" class=" btn-danger">Edit</button>
+                        <button type="button" class=" btn-danger">Delete</button>
+                    </td>
+                </tr>
+
+
+            }
+        </tbody>
+    </table>
+</body>
+</html>
